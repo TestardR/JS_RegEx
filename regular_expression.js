@@ -23,7 +23,31 @@ const unformattedName = 'aaron.arney:alligator.io';
 // expected output: Array [ "a" ]
 
 // Lets assume that the given username will have between 1 and 15 characters
-const exp = new RegExp(/[a-z]{1,15}/, 'i');
+// const exp = new RegExp(/[a-z]{1,15}/, 'i');
+// const found = unformattedName.match(exp);
+// console.log(found);
+// expected output: Array [ "aaron" ]
+
+// Step 2 : matching the Last Name
+
+// The account for the second expression, we have to make use of '.'.
+// Be careful here. The . can mean one of two things in an expression :
+// . => Match any character except newline
+// \. => Match a .
+
+// Note : Using either version in this context will generate the same result, but that won’t always be the case. Tools like eslint will sometimes mark the escape sequence \ as unnecessary, but I say better safe than sorry!
+
+// const unformattedName = 'aaron.arney:alligator.io';
+
+// const exp = new RegExp(/[a-z]{1,15}\.[a-z]{1,15}/, 'i');
+// const found = unformattedName.match(exp);
+// console.log(found);
+// expected output: Array [ "aaron.arney" ]
+
+// We can split the string into two items as well as excluding the full stop from being returned by the expression, we can use capturing groups. These are denoted by parenthesis () and wrap around parts of the expression
+// The syntax for using capture groups is simple: (expression).
+
+const exp = new RegExp(/([a-z]{1,15})\.([a-z]{1,15})/, 'i');
 const found = unformattedName.match(exp);
 console.log(found);
-// expected output: Array [ "aaron" ]
+// expected output: Array [ "aaron.arney", "aaron", "arney" ]
