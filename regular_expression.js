@@ -3,7 +3,7 @@
 // We can create a new RegExp object in few ways:
 
 //  1. /expression/.match('string to test against')
-//  2. new RegeExp('expression')
+//  2. new RegExp('expression')
 //  3. new RegExp(/expression/)
 
 //  Example: I want to convert aaron.arney:alligator.io into Aaron Arney [Alligator].
@@ -44,10 +44,25 @@ const unformattedName = 'aaron.arney:alligator.io';
 // console.log(found);
 // expected output: Array [ "aaron.arney" ]
 
-// We can split the string into two items as well as excluding the full stop from being returned by the expression, we can use capturing groups. These are denoted by parenthesis () and wrap around parts of the expression
+// We can split the string into two items, we can use capturing groups. These are denoted by parenthesis () and wrap around parts of the expression
 // The syntax for using capture groups is simple: (expression).
 
-const exp = new RegExp(/([a-z]{1,15})\.([a-z]{1,15})/, 'i');
-const found = unformattedName.match(exp);
-console.log(found);
+// const exp = new RegExp(/([a-z]{1,15})\.([a-z]{1,15})/, 'i');
+// const found = unformattedName.match(exp);
+// console.log(found);
 // expected output: Array [ "aaron.arney", "aaron", "arney" ]
+
+// Step 3 : Matching the Domain Name
+// Validating domain names and TLD’s is a difficult business. We’re going to pretend the domains that we parse, are always > 3 && < 25 characters. The TLD’s are always > 1 && < 10
+
+// const unformattedName = 'aaron.arney:alligator.io';
+
+const exp = new RegExp(
+  /([a-z]{1,15})\.([a-z]{1,15}):([a-z]{3,25}\.[a-z]{2,10})/,
+  'i'
+);
+
+const found = unformattedName.match(exp);
+
+console.log(found);
+// expected output: Array [ "aaron.arney:alligator.io", "aaron", "arney", "alligator.io" ]
