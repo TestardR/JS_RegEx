@@ -67,7 +67,7 @@ const unformattedName = 'aaron.arney:alligator.io';
 // console.log(found);
 // expected output: Array [ "aaron.arney:alligator.io", "aaron", "arney", "alligator.io" ]
 
-// Step 4: A Shortcut
+// Step 5 : A Shortcut
 // By using the + quantifier, we can tell our expression to repeat the preceding token as many times as it can. It will continue until it hits a dead end, in our case the full stop.
 // This expression also introduces the g flag, which stands for global. It tells the expression that we want to repeat our search as many times as possible, instead of the least times.
 // With the global flag
