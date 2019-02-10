@@ -57,12 +57,12 @@ const unformattedName = 'aaron.arney:alligator.io';
 
 // const unformattedName = 'aaron.arney:alligator.io';
 
-const exp = new RegExp(
-  /([a-z]{1,15})\.([a-z]{1,15}):([a-z]{3,25}\.[a-z]{2,10})/,
-  'i'
-);
+// const exp = new RegExp(
+//   /([a-z]{1,15})\.([a-z]{1,15}):([a-z]{3,25}\.[a-z]{2,10})/,
+//   'i'
+// );
 
-const found = unformattedName.match(exp);
+// const found = unformattedName.match(exp);
 
 // console.log(found);
 // expected output: Array [ "aaron.arney:alligator.io", "aaron", "arney", "alligator.io" ]
@@ -79,5 +79,61 @@ const found = unformattedName.match(exp);
 
 // Without the global flag
 'aaron.arney:alligator.io'.match(/[a-z]+/i);
-console.log('aaron.arney:alligator.io'.match(/[a-z]+/i));
+// console.log('aaron.arney:alligator.io'.match(/[a-z]+/i));
 // expected output: Array(4) [ "aaron" ]
+
+// Step 4 : Formatting Output
+// To format the string, we’ll be using the replace method on the String object. The  replace method takes two arguments:
+// RegExp | String - A regular expression object or literal
+// RegExp | function - A regular expression or function
+
+// const unformattedName = 'aaron.arney:alligator.io';
+
+// The "long" way
+const exp = new RegExp(
+  /([a-z]{1,15})\.([a-z]{1,15}):([a-z]{3,25}\.[a-z]{2,10})/,
+  'i'
+);
+
+unformattedName.replace(exp, '$1 $2 [$3]');
+// console.log(unformattedName.replace(exp, '$1 $2 [$3]'));
+// expected output:  "aaron arney [alligator.io]"
+
+// A slightly shorter way
+unformattedName.replace(
+  /([a-z]+)\.([a-z]+):([a-z]+\.[a-z]{2,10})/gi,
+  '$1 $2 [$3]'
+);
+// console.log(
+//   unformattedName.replace(
+//     /([a-z]+)\.([a-z]+):([a-z]+\.[a-z]{2,10})/gi,
+//     '$1 $2 [$3]'
+//   )
+// );
+// expected output: "aaron arney [alligator.io]"
+
+// the $1, $2, $3 are special patterns that get interpreted by the replace method.
+// $1 - The first result from the match array =>A reference to the first parenthesized group
+// $n - So on and so on
+
+// Going futher down the road with formatting
+
+// To capitalize the words, we can use another regex. Instead of formatting the output like we did above, we will pass a function.
+// Here, we will make use of a couple new parts, anchors, alternation, and a new character class [^].
+// [^abc] - Not a, b, or c
+// \b - Word boundary
+// ab|cd - Logical “OR”, matches ab or cd
+
+// Capitalize the words
+'aaron arney [alligator.io]'.replace(/(^\b[a-z])|([^\.]\b[a-z])/g, char =>
+  char.toUpperCase()
+);
+console.log(
+  'aaron arney [alligator.io]'.replace(/(^\b[a-z])|([^\.]\b[a-z])/g, char =>
+    char.toUpperCase()
+  )
+);
+// expected output: "Aaron Arney [Alligator.io]"
+
+// (^\b[a-z]) - Capture the first character of the string. ^ says to match the beginning of the string.
+// |([^\.]\b[a-z]) - OR, match a new word that does not start with a full stop ., as this is the TLD.
