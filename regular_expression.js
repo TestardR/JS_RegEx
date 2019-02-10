@@ -64,5 +64,20 @@ const exp = new RegExp(
 
 const found = unformattedName.match(exp);
 
-console.log(found);
+// console.log(found);
 // expected output: Array [ "aaron.arney:alligator.io", "aaron", "arney", "alligator.io" ]
+
+// Step 4: A Shortcut
+// By using the + quantifier, we can tell our expression to repeat the preceding token as many times as it can. It will continue until it hits a dead end, in our case the full stop.
+// This expression also introduces the g flag, which stands for global. It tells the expression that we want to repeat our search as many times as possible, instead of the least times.
+// With the global flag
+
+// With the global g flag
+'aaron.arney:alligator.io'.match(/[a-z]+/gi);
+// console.log('aaron.arney:alligator.io'.match(/[a-z]+/gi));
+// expected output: Array(4) [ "aaron", "arney", "alligator", "io" ]
+
+// Without the global flag
+'aaron.arney:alligator.io'.match(/[a-z]+/i);
+console.log('aaron.arney:alligator.io'.match(/[a-z]+/i));
+// expected output: Array(4) [ "aaron" ]
